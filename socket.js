@@ -20,7 +20,7 @@ var clients = [];
 
 function startServer() {
     server = net.createServer();
-    server.listen(PORT, HOST);
+    server.listen(PORT);
     console.log('Socket server listening on ' + HOST + ':' + PORT);
 
     server.on('connection', function (sock) {
