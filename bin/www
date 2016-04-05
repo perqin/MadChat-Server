@@ -5,15 +5,16 @@
  */
 
 var app = require('../app');
+var socketServer = require('../socket');
 var debug = require('debug')('MadChat:server');
 var http = require('http');
 
 /**
- * Get port from environment and store in Express.
+ * Get app_port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+var app_port = normalizePort(process.env.PORT || '3000');
+app.set('app_port', app_port);
 
 /**
  * Create HTTP server.
@@ -22,15 +23,33 @@ app.set('port', port);
 var server = http.createServer(app);
 
 /**
- * Listen on provided port, on all network interfaces.
+ * Listen on provided app_port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(app_port);
 server.on('error', onError);
 server.on('listening', onListening);
 
 /**
- * Normalize a port into a number, string, or false.
+ * Get socket_port from environment.
+ */
+
+var socket_port = normalizePort('2346');
+
+/**
+ * Initialize socket server.
+ */
+
+socketServer.initialize('127.0.0.1', socket_port);
+
+/**
+ * Create Socket server.
+ */
+
+socketServer.startServer();
+
+/**
+ * Normalize a app_port into a number, string, or false.
  */
 
 function normalizePort(val) {
@@ -42,7 +61,7 @@ function normalizePort(val) {
   }
 
   if (port >= 0) {
-    // port number
+    // app_port number
     return port;
   }
 
@@ -58,9 +77,9 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof app_port === 'string'
+    ? 'Pipe ' + app_port
+    : 'Port ' + app_port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -85,6 +104,7 @@ function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
-    : 'port ' + addr.port;
+    : 'app_port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
