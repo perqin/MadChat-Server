@@ -16,6 +16,8 @@ function initialize(host, port) {
     PORT = port;
 }
 
+var clients = [];
+
 function startServer() {
     server = net.createServer();
     server.listen(PORT, HOST);
@@ -23,5 +25,7 @@ function startServer() {
 
     server.on('connection', function (sock) {
         console.log('Remote: ' + sock.remoteAddress + ':' + sock.remotePort);
+        sock.write('You are ' + sock.remoteAddress + ':' + sock.remotePort);
+        clients.push(sock);
     });
 }
