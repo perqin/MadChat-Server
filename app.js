@@ -6,11 +6,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+mongoose.Promise = Promise;
 
 var routes = require('./routes/index');
 var rest = require('./routes/rest');
 
 var app = express();
+
+mongoose.connect('mongodb://localhost:27017/madchat');
+mongoose.connection.on('error', console.error.bind(console, 'Mongoose connect error: '));
+mongoose.connection.once('open', console.log.bind(console, 'MongoDB connected!'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
