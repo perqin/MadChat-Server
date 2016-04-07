@@ -40,7 +40,7 @@ var socket_port = normalizePort('2346');
  * Initialize socket server.
  */
 
-socketServer.initialize('127.0.0.1', socket_port);
+socketServer.initialize(socket_port);
 
 /**
  * Create Socket server.
