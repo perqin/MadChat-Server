@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var config = require('../config.json');
-var mongoose = require('mongoose');
+// var config = require('../config.json');
+// var mongoose = require('mongoose');
 
-var Promise = mongoose.Promise;
-var User = require('../models/user');
-var ObjectId = mongoose.Schema.Types.ObjectId;
+// var Promise = mongoose.Promise;
+// var User = require('../models/user');
+// var ObjectId = mongoose.Schema.Types.ObjectId;
 
-router.get('/users', function (req, res) {
+/*router.get('/users', function (req, res) {
     var id = req.query.user_id;
     var json = {};
     User
@@ -24,9 +24,9 @@ router.get('/users', function (req, res) {
         .then(function () {
             res.send(JSON.stringify(json));
         });
-});
+});*/
 
-router.post('/users', function (req, res) {
+/*router.post('/users', function (req, res) {
     var nickname = req.body.nickname;
     var json = {};
     User.create({
@@ -40,9 +40,9 @@ router.post('/users', function (req, res) {
     }).then(function () {
         res.send(JSON.stringify(json));
     });
-});
+});*/
 
-router.delete('/users/:id', function (req, res) {
+/*router.delete('/users/:id', function (req, res) {
     var user_id = req.params.id;
     var json = {};
     User.remove({
@@ -56,6 +56,6 @@ router.delete('/users/:id', function (req, res) {
     }).then(function () {
         res.send(JSON.stringify(json));
     });
-});
+});*/
 
 module.exports = router;
