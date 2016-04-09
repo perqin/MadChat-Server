@@ -8,12 +8,13 @@ var app = require('../app');
 var socketServer = require('../socket');
 var debug = require('debug')('MadChat:server');
 var http = require('http');
+var config = require('../config.json');
 
 /**
  * Get app_port from environment and store in Express.
  */
 
-var app_port = normalizePort(process.env.PORT || '2345');
+var app_port = normalizePort(process.env.PORT || config.app.http_port);
 app.set('app_port', app_port);
 
 /**
@@ -34,7 +35,7 @@ server.on('listening', onListening);
  * Get socket_port from environment.
  */
 
-var socket_port = normalizePort('2346');
+var socket_port = normalizePort(config.app.socket_port);
 
 /**
  * Initialize socket server.
@@ -53,19 +54,19 @@ socketServer.startServer();
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+    var port = parseInt(val, 10);
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
 
-  if (port >= 0) {
-    // app_port number
-    return port;
-  }
+    if (port >= 0) {
+        // app_port number
+        return port;
+    }
 
-  return false;
+    return false;
 }
 
 /**
@@ -73,27 +74,27 @@ function normalizePort(val) {
  */
 
 function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
 
-  var bind = typeof app_port === 'string'
-    ? 'Pipe ' + app_port
-    : 'Port ' + app_port;
+    var bind = typeof app_port === 'string'
+        ? 'Pipe ' + app_port
+        : 'Port ' + app_port;
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
 }
 
 /**
@@ -101,10 +102,9 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'app_port ' + addr.port;
-  debug('Listening on ' + bind);
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'app_port ' + addr.port;
+    debug('Listening on ' + bind);
 }
-

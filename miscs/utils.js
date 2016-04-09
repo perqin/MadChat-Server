@@ -1,7 +1,13 @@
 'use strict';
 
+var shortid = require('shortid');
+// TODO: need other package
+// shortid.characters('0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef');
+
+
 module.exports = {
-    hexToNumber: hexToNumber
+    hexToNumber: hexToNumber,
+    genUid: genUid
 };
 
 function hexToNumber(hex, start, count) {
@@ -23,4 +29,13 @@ function hexToNumber(hex, start, count) {
         }
     }
     return s;
+}
+
+function genUid(length) {
+    var len = length || 32;
+    var str = '';
+    while (str.length < len) {
+        str += shortid.generate();
+    }
+    return str.slice(0, len);
 }

@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 // mongoose.Promise = Promise;
 
 var routes = require('./routes/index');
+var api = require('./routes/api');
 // var rest = require('./routes/rest');
 
 var app = express();
@@ -32,6 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/api', api);
 // app.use('/rest', rest);
 
 // catch 404 and forward to error handler

@@ -1,5 +1,7 @@
 {
   "app": {
-    "user_expire": 86400
+    "user_expire": 86400,
+    "http_port": "2345",
+    "socket_port": "2346"
   }
 }
